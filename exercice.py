@@ -5,30 +5,56 @@
 def order(values: list = None) -> list:
     if values is None:
         # TODO: demander les valeurs ici
-        pass
+        values = []
+        chaine = (input("Entrez dix valeurs séparées de virgules (ex. 12,c,5,65,...):"))
+        values = chaine.split(",")
+        if len(values) != 10:
+            print("Vous n'avez pas entré 10 valeurs")
+        values.sort()
+        print(values)
+        return values
 
-    return []
 
 
 def anagrams(words: list = None) -> bool:
     if words is None:
         # TODO: demander les mots ici
-        pass
+        word_1 = input("Entrez un permier mot:")
+        word_2 = input("Entrez un deuxième mot:")
+        for char in word_1:
+            if word_2.count(char) == 0:
+                anagrammes = False
+                break
+            else:
+                anagrammes = True
+        print(anagrammes)
+        return anagrammes
 
-    return False
 
 
 def contains_doubles(items: list) -> bool:
-    return False
+    for part in items:
+        if items.count(part) > 1:
+            doublons = True
+            break
+        else:
+            doublons = False
+    return doublons
+
 
 
 def best_grades(student_grades: dict) -> dict:
     # TODO: Retourner un dictionnaire contenant le nom de l'étudiant ayant la meilleure moyenne ainsi que sa moyenne
-    return {}
+    for student in student_grades:
+
+      pass
 
 
 def frequence(sentence: str) -> dict:
     # TODO: Afficher les lettres les plus fréquentes
+    fre = []
+    for char in sentence:
+        fre.append(sentence.count(char))
     #       Retourner le tableau de lettres
 
     return {}
@@ -36,7 +62,10 @@ def frequence(sentence: str) -> dict:
 
 def get_recipes():
     # TODO: Demander le nom d'une recette, puis ses ingredients et enregistrer dans une structure de données
-    pass
+    name = input("Entrez le nom de la recette.")
+    ing = input("Entrez la liste des ingrédients séparés par des virgules.")
+    dict_recette = {"recette": name , "ingrédients" : ing}
+    print(dict_recette)
 
 
 def print_recipe(ingredients) -> None:
