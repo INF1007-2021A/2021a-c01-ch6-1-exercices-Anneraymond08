@@ -6,79 +6,77 @@ def order(values: list = None) -> list:
     if values is None:
         # TODO: demander les valeurs ici
         values = []
-        chaine = (input("Entrez dix valeurs séparées de virgules (ex. 12,c,5,65,...):"))
-        values = chaine.split(",")
-        if len(values) != 10:
-            print("Vous n'avez pas entré 10 valeurs")
-        values.sort()
-        print(values)
-        return values
+        while len(values)<10:
+            values.append(input("Entrez une valeur: \n"))
+    num_values = [float(value) for value in values if value.isdigit()]
+    str_values = [value for value in values if not value.isdigit()]
+
+    return sorted(num_values) + sorted(str_values)
 
 
 
 def anagrams(words: list = None) -> bool:
     if words is None:
         # TODO: demander les mots ici
-        word_1 = input("Entrez un permier mot:")
-        word_2 = input("Entrez un deuxième mot:")
-        for char in word_1:
-            if word_2.count(char) == 0:
-                anagrammes = False
-                break
-            else:
-                anagrammes = True
-        print(anagrammes)
-        return anagrammes
+        words = []
+        while len(words)<2:
+            words.append(input("entrez un mot: \n"))
+
+        return sorted(words[0].lower()) == sorted(words[1].lower())
 
 
 
 def contains_doubles(items: list) -> bool:
-    for part in items:
-        if items.count(part) > 1:
-            doublons = True
-            break
-        else:
-            doublons = False
-    return doublons
+    return len(set(items)) != len(items)
 
 
 
 def best_grades(student_grades: dict) -> dict:
     # TODO: Retourner un dictionnaire contenant le nom de l'étudiant ayant la meilleure moyenne ainsi que sa moyenne
-    for student in student_grades:
-
-      pass
+    best_student = {}
+    for key, value in student_grades.items():
+        average = sum(value)/len(value)
+        if len(best_student) == 0 or list(best_student.values())[0] < average:
+            best_student = {key: average}
+    return best_student
 
 
 def frequence(sentence: str) -> dict:
     # TODO: Afficher les lettres les plus fréquentes
-    fre = []
-    for char in sentence:
-        fre.append(sentence.count(char))
+    frequency = {}
+    for letter in sentence:
+        frequency[letter] = sentence.count(letter)
+    sorted_keys = sorted(frequency, key=frequency.__getitem__, reverse=True)
     #       Retourner le tableau de lettres
-
-    return {}
+    for key in sorted_keys:
+        if frequency[key]>5:
+            print(f"le caractère {key} revient {frequency[key]} fois.")
+    return frequency
 
 
 def get_recipes():
     # TODO: Demander le nom d'une recette, puis ses ingredients et enregistrer dans une structure de données
-    name = input("Entrez le nom de la recette.")
-    ing = input("Entrez la liste des ingrédients séparés par des virgules.")
-    dict_recette = {"recette": name , "ingrédients" : ing}
-    print(dict_recette)
+    name = input("Entrez le nom de la recette:\n")
+    ingredients = input("Entrez la liste des ingrédients séparés par des virgules:\n").split(",")
+    return {name: ingredients}
 
 
 def print_recipe(ingredients) -> None:
     # TODO: Demander le nom d'une recette, puis l'afficher si elle existe
-    pass
+    name = input("Quel est le nom de la recette?\n")
+    if name in ingredients:
+        print(ingredients[name])
+    else:
+        print("Je ne connais pas cete recette.")
+        print_recipe(ingredients)
 
 
 def main() -> None:
     print(f"On essaie d'ordonner les valeurs...")
-    order()
+    print(order())
 
     print(f"On vérifie les anagrammes...")
-    anagrams()
+    print(anagrams())
 
     my_list = [3, 3, 5, 6, 1, 1]
     print(f"Ma liste contient-elle des doublons? {contains_doubles(my_list)}")
